@@ -1,0 +1,120 @@
+﻿@model Contact
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+@section script{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @*<script>
+            $('#contactForm').submit(function (e) {
+                //e.preventDefault();
+
+                console.log($('#contactForm').serialize());
+
+                $.ajax({
+                    url: '@Url.Action("Contact","Home")',
+                    type: 'POST',
+                    data: $('#contactForm').serialize(),
+                    success: function (response) {
+                        swal("Good job!", "You clicked the button!", "success")
+                            .then(() => {
+                                window.location.href = '@Url.Action("Index","Home")';
+                        });
+                    },
+                    error: function (response) {
+                        console.log(response);
+                        swal("Bad job!", "You clicked the button!", "error");
+                    }
+                });
+            });
+        </script>*@
+
+    <script>
+        $('#btnSend').click(function (e) {
+            console.log($('#contactForm').serialize());
+
+            $.ajax({
+                url: '@Url.Action("Contact","Home")',
+                type: 'POST',
+                data: $('#contactForm').serialize(),
+                success: function (response) {
+                    swal("Good job!", "You clicked the button!", "success")
+                        .then(() => {
+                            window.location.href = '@Url.Action("Index","Home")';
+                    });
+                },
+                error: function (response) {
+                    console.log(response);
+                    swal("Bad job!", "You clicked the button!", "error");
+                }
+            });
+        });
+    </script>
+}
+
+<div class="vizew-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="contact-area mb-80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-7 col-lg-8">
+                <div class="section-heading style-2">
+                    <h4>Contact</h4>
+                    <div class="line"></div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <div class="contact-form-area mt-50">
+                    <form action="@Url.Action("Contact","Home")" method="post" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name*</label>
+                            <input name="name" type="text" class="form-control" id="name" value="@Model.Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input name="email" type="email" class="form-control" id="email" value="@Model.Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message*</label>
+                            <textarea name="message" class="form-control" id="message" cols="30" rows="10">@Model.Message</textarea>
+                        </div>
+                        <button class="btn vizew-btn mt-30" type="button" id="btnSend">Send Now</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="sidebar-area">
+                    <div class="single-widget newsletter-widget mb-50">
+                        <div class="section-heading style-2 mb-30">
+                            <h4>Newsletter</h4>
+                            <div class="line"></div>
+                        </div>
+                        <p>Subscribe our newsletter gor get notification about new updates, information discount, etc.</p>
+                        <div class="newsletter-form">
+                            <form action="#" method="post">
+                                <input type="email" name="nl-email" class="form-control mb-15" id="emailnl" placeholder="Enter your email">
+                                <button type="submit" class="btn vizew-btn w-100">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="single-widget add-widget">
+                        <a href="#"><img src="img/bg-img/add.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

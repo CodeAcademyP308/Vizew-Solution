@@ -1,0 +1,65 @@
+﻿@model HandleErrorInfo
+
+@{ 
+    string errorTitle = "Server xətası";
+    int errorNumber = 0;
+
+    if (Model.Exception is HttpException)
+    {
+        var ex = (HttpException)Model.Exception;
+        errorNumber = ex.GetHttpCode();
+        switch (errorNumber)
+        {
+            case 400:
+                errorTitle = "Müraciət xətası";
+                break;
+            case 404:
+                errorTitle = "Məlumat tapılmadı";
+                break;
+        }
+    }
+
+}
+
+@section css{
+    <style>
+        .btn-outline-info {
+            color: #db4437;
+            border-color: #db4437;
+        }
+
+        .btn-primary {
+            background-color: #db4437;
+            border-color: #db4437;
+        }
+
+        .btn-outline-info:hover {
+            color: #fff;
+            background-color: #db4437;
+            border-color: #db4437;
+        }
+
+        .btn-primary:hover {
+            color: #fff;
+            background-color: #db4437;
+            border-color: #db4437;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="error-pagewrap" style="margin: 65px 0px;width: 100%;">
+            <div class="error-page-int d-block">
+                <div class="content-error">
+                    <h1 class="d-block text-center">XƏTA @Html.Raw(errorNumber>0?("<span class='counter'>"+errorNumber+"</span>"):"")</h1>
+                    <p class="d-block text-center">@errorTitle</p>
+                    <div class="d-block text-center">
+                        <a href="@Url.Action("Index","Home")" class="btn btn-sm btn-outline-info">Əsas səhifəyə qayıt</a>
+                        <a href="#" class="btn btn-sm btn-primary">Problem varsa problem yoxdur</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

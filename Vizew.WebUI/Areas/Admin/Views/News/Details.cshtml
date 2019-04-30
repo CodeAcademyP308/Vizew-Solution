@@ -1,0 +1,83 @@
+﻿@model Vizew.WebUI.Models.Entity.News
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="sparkline12-list">
+                <div class="sparkline12-hd">
+                    <div class="main-sparkline12-hd">
+                        <h5>Redaktə etmək: @Model.Title</h5>
+                        <hr />
+                    </div>
+                </div>
+                <div class="sparkline12-graph">
+                    <div class="basic-login-form-ad">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="all-form-element-inner">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control",disabled="" } })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control",disabled="" } })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MediaUrl, htmlAttributes: new { @class = "control-label" })
+                                        <label class="form-control image-container">
+                                            <img src="~/Template/media/@Model.MediaUrl" id="news-image" />
+                                            <i class="empty-icon"></i>
+                                            @Html.EditorFor(model => model.MediaUrl,
+                                            new
+                                            {
+                                            htmlAttributes = new
+                                            {
+                                              @class = "form-control",
+                                              type = "file",
+                                              style = "display:none",
+                                              accept = "image/*",
+                                              onchange = "readURL(this)",
+                                              id = "mediaUrl",
+                                              disabled=""
+                                            }
+                                            })
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.MediaUrl, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" ,disabled=""} })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                                        <input class = "form-control" disabled value="@Model.Category.Name"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.IsPopular, htmlAttributes: new { @class = "control-label" })
+                                        <i class="fa fa-@(Model.IsPopular?"check":"square")"></i>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <a href="@Url.Action( "Index", "News", routeValues: new { area = "admin" })" class="btn btn-sm btn-danger">İmtina et</a>
+                                        <a href="@Url.Action( "Edit", "News", routeValues: new { area = "admin" ,id = Model.Id})" class="btn btn-sm btn-primary">Redaktə et</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

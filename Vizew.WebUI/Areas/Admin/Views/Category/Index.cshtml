@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Vizew.WebUI.Models.Entity.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1><span class="table-project-n">Kateqoriyalar</span>ın siyahısı</h1>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+
+                            <div class="bootstrap-table">
+                                <div class="fixed-table-toolbar">
+                                    <div class="bs-bars pull-left">
+                                        <div id="toolbar">
+                                            <select class="form-control dt-tb">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="columns columns-right btn-group pull-right">
+                                        <button class="btn btn-default" type="button" name="paginationSwitch" aria-label="pagination Switch" title="Hide/Show pagination"><i class="glyphicon glyphicon-collapse-down icon-chevron-down"></i></button><button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh"><i class="glyphicon glyphicon-refresh icon-refresh"></i></button><button class="btn btn-default" type="button" name="toggle" aria-label="toggle" title="Toggle"><i class="glyphicon glyphicon-list-alt icon-list-alt"></i></button><div class="keep-open btn-group" title="Columns"><button type="button" aria-label="columns" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th icon-th"></i> <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li role="menuitem"><label><input type="checkbox" data-field="id" value="1" checked="checked"> ID</label></li><li role="menuitem"><label><input type="checkbox" data-field="name" value="2" checked="checked"> Task</label></li><li role="menuitem"><label><input type="checkbox" data-field="email" value="3" checked="checked"> Email</label></li><li role="menuitem"><label><input type="checkbox" data-field="phone" value="4" checked="checked"> Phone</label></li><li role="menuitem"><label><input type="checkbox" data-field="complete" value="5" checked="checked"> Completed</label></li><li role="menuitem"><label><input type="checkbox" data-field="task" value="6" checked="checked"> Task</label></li><li role="menuitem"><label><input type="checkbox" data-field="date" value="7" checked="checked"> Date</label></li><li role="menuitem"><label><input type="checkbox" data-field="price" value="8" checked="checked"> Price</label></li><li role="menuitem"><label><input type="checkbox" data-field="action" value="9" checked="checked"> Action</label></li></ul></div><div class="export btn-group"><button class="btn btn-default dropdown-toggle" aria-label="export type" title="Export data" data-toggle="dropdown" type="button"><i class="glyphicon glyphicon-export icon-share"></i> <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li role="menuitem" data-type="json"><a href="javascript:void(0)">JSON</a></li><li role="menuitem" data-type="xml"><a href="javascript:void(0)">XML</a></li><li role="menuitem" data-type="csv"><a href="javascript:void(0)">CSV</a></li><li role="menuitem" data-type="txt"><a href="javascript:void(0)">TXT</a></li><li role="menuitem" data-type="sql"><a href="javascript:void(0)">SQL</a></li><li role="menuitem" data-type="excel"><a href="javascript:void(0)">MS-Excel</a></li></ul></div>
+                                    </div><div class="pull-right search"><input class="form-control" type="text" placeholder="Search"></div>
+                                </div><div class="fixed-table-container" style="padding-bottom: 0px;">
+                                    <div class="fixed-table-header" style="display: none;"><table></table></div><div class="fixed-table-body">
+
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar" class="table table-hover JColResizer">
+                                            <thead>
+                                                <tr>
+                                                    <th class="bs-checkbox " style="width: 2.2%;"><div class="th-inner "><input name="btSelectAll" type="checkbox"></div><div class="fht-cell"></div></th>
+                                                    <th><div class="th-inner ">@Html.DisplayNameFor(model => model.Name)</div><div class="fht-cell"></div></th>
+                                                    <th style="width: 3.7%;"><div class="th-inner ">@Html.DisplayNameFor(model => model.IsActive)</div><div class="fht-cell"></div></th>
+                                                    <th style="width: 131px;min-width: 131px;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                <tr>
+                                                    <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                    <td><i class="fa fa-@(item.IsActive?"check":"square")"></i></td>
+                                                    <td class="datatable-ct">
+                                                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-success btn-sm"><i class="fa fa-edit text-light"></i></a>
+                                                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info btn-sm"><i class="fa fa-search text-light"></i></a>
+                                                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm"><i class="fa fa-trash text-light"></i></a>
+                                                    </td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <div class="fixed-table-pagination">
+                                        <div class="pull-right pagination">
+                                            <ul class="pagination">
+                                                <li class="page-pre"><a href="#">‹</a></li>
+                                                <li class="page-number active">
+                                                    <a href="#">1</a>
+                                                </li>
+                                                <li class="page-number"><a href="#">2</a></li>
+                                                <li class="page-number"><a href="#">3</a></li>
+                                                <li class="page-next"><a href="#">›</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

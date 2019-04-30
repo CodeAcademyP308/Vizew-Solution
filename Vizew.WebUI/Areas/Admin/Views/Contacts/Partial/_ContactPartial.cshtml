@@ -1,0 +1,25 @@
+﻿@model Vizew.WebUI.Models.Entity.Contact
+
+<form action="@Url.Action("Contact","Contacts",routeValues:new { area="admin"})" method="post" id="contactForm">
+    <input type="hidden" name="id" id="id" />
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input name="name" type="text" class="form-control" id="name" readonly value="@Model.Name" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" type="email" class="form-control" readonly id="email" value="@Model.Email">
+    </div>
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea name="message" class="form-control" readonly id="message" cols="30" rows="10">
+         @Model.Message
+</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="answerMesssage">Cavab Mətni*</label>
+        <textarea name="answerMesssage" class="form-control" id="answerMesssage" cols="30" rows="10">
+                        </textarea>
+    </div>
+</form>

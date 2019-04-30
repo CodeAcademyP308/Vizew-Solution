@@ -1,0 +1,24 @@
+﻿@model IEnumerable<News>
+
+@if (Model != null)
+{
+    <div class="breaking-news-area d-flex align-items-center">
+        <div class="news-title">
+            <p>Breaking News:</p>
+        </div>
+        <div id="breakingNewsTicker" class="ticker">
+            <ul>
+                @foreach (var news in Model)
+                {
+                    <li>
+                        <a href="@Url.Action("SinglePost", routeValues: new {
+                        id = news.Id,
+                        category =Url.FriendlyUrlContext(news.Category.Name),
+                        title =Url.FriendlyUrlContext(news.Title) })">@news.Title</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+

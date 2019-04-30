@@ -1,0 +1,137 @@
+﻿@model Vizew.WebUI.Models.Entity.News
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="sparkline12-list">
+                <div class="sparkline12-hd">
+                    <div class="main-sparkline12-hd">
+                        <h5>Redaktə etmək</h5>
+                        <hr />
+                    </div>
+                </div>
+                <div class="sparkline12-graph">
+                    <div class="basic-login-form-ad">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="all-form-element-inner">
+                                    @using (Html.BeginForm("Edit", "News", method: FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+    {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => model.Id)
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MediaUrl, htmlAttributes: new { @class = "control-label" })
+                                    <label class="form-control image-container">
+                                        <input name="fileName" id="fileName"
+                                               value="@(string.IsNullOrWhiteSpace(Model.MediaUrl)?"":Href("~/Template/media/"+Model.MediaUrl))"
+                                               type="hidden" />
+                                        <img src="@(string.IsNullOrWhiteSpace(Model.MediaUrl)?"":Href("~/Template/media/"+Model.MediaUrl))" id="news-image" />
+                                        <i class="empty-icon"></i>
+                                        <a href="javascript:removePhoto()"><i class="clear-icon header-right-button"></i></a>
+                                        @Html.EditorFor(model => model.MediaUrl,
+new
+{
+   htmlAttributes = new
+   {
+       @class = "form-control",
+       type = "file",
+       style = "display:none",
+       accept = "image/*",
+       onchange = "readURL(this)",
+       id = "mediaUrl"
+   }
+})
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.MediaUrl, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextAreaFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsPopular, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.IsPopular)
+                                    @Html.ValidationMessageFor(model => model.IsPopular, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <a href="@Url.Action( "Index", "News", routeValues: new { area = "admin" })" class="btn btn-sm btn-danger">İmtina et</a>
+                                    <button class="btn btn-sm btn-primary" type="submit">Yadda saxla</button>
+                                </div>
+}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section script{
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+    <script>
+        $(function () {
+            $('.validation-summary-errors').each(function () {
+                $(this).addClass('alert');
+                $(this).addClass('alert-danger');
+            });
+            $('form').each(function () {
+                $(this).find('div.form-group').each(function () {
+                    if ($(this).find('span.field-validation-error').length > 0) {
+                        $(this).addClass('has-error');
+                        $(this).find('span.field-validation-error').
+                            removeClass('field-validation-error');
+                    }
+                });
+            });
+        });
+
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#news-image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        var removePhoto = function () {
+            document.getElementById('fileName').value = '';
+            document.getElementById('mediaUrl').value = '';
+            document.getElementById('news-image').src = '';
+        }
+        CKEDITOR.replace('Body');
+    </script>
+}
