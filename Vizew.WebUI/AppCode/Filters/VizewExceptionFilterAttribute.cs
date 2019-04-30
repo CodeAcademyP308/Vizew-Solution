@@ -58,7 +58,7 @@ namespace Vizew.WebUI
             }
             catch (Exception ex)
             {
-                logger.Fatal(ex);
+                //logger.Fatal(ex);
             }
 
             filterContext.Result = new ViewResult
