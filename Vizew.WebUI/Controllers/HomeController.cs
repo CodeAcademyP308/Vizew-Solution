@@ -14,7 +14,7 @@ namespace Vizew.WebUI.Controllers
 
         public ViewResult Index()
         {
-            
+            var a = "test";
             var news = db.News.Where(n => n.IsPopular && n.DeletedDate == null)
                    .OrderByDescending(n => n.Id)
                    .Take(10)
